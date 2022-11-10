@@ -4,12 +4,13 @@
    
     <div class="cardSign">
          <p class="pHeader"> SignUp </p>
+         @* <p class="pHeader"> @selectRole</p> *@
         <div class="rowCard">
             <p>Роль</p>
-            <select>
-                <option  value=@itemRole1>Значение 1</option>
-                <option value=@itemRole2 selected>Значение 2</option>
-                <option value=@itemRole3>Значение 3</option>
+            <select @bind="selectRole">
+                <option  value=@itemRole1>Заказчик</option>
+                <option value=@itemRole2 selected>Проектирощик</option>
+                <option value=@itemRole3>Застройщик</option>
                 
             </select>
         </div>
@@ -29,8 +30,13 @@
             <input @bind-value="@itemPassword"/>
         </div>
         
-        <button class="btnSing">Sign up</button>
+        <button class="btnSing" onclick="@isValidate">Sign up</button>
        
+         <div class="contentLink">
+             <NavLink class="nav-link" href="client" Match="NavLinkMatch.All">
+                 <span class="oi oi-person" aria-hidden="true"></span> Sign in
+             </NavLink>
+         </div>
         
     </div>
 </div>
@@ -38,10 +44,57 @@
 
 
 @code {
-    String itemRole1 = "1";
-    String itemRole2 = "2";
-    String itemRole3 = "3";
+    String itemRole1 = "Заказчик";
+    String itemRole2 = "Проектирощик";
+    String itemRole3 = "Застройщик";
+    
     String itemEmail = "";
     String itemLogin = "";
     String itemPassword = "";
+    
+    String selectRole="Y";
+
+    User user = new User();
+
+    
+    
+    public void isValidate()
+    {
+        if (itemEmail != "" && itemLogin != "" && itemPassword != "")
+        {
+            isUser();
+            CreateAccount();
+        
+        }
+   
+    }
+
+
+    public void isUser()
+    {
+        switch (selectRole)
+        {
+            case "Заказчик":
+                user = new Client();
+                break;
+                
+            case "Проектирощик":
+                user = new Designer();
+                break;
+                
+            case "Застройщик":
+                user = new Builder();
+                break;
+        }
+    }
+
+    public void CreateAccount()
+    {
+        user.Login = itemLogin;
+        user.Password = itemPassword;
+        user.Role = selectRole;
+        user.Email = itemEmail;
+        
+        MongoDBAction.AddToDatabase(user);
+    }
 }
