@@ -1,7 +1,47 @@
 ﻿@page "/signUp"
 
-<h3>SignUp</h3>
+<div class="content">
+   
+    <div class="cardSign">
+         <p class="pHeader"> SignUp </p>
+        <div class="rowCard">
+            <p>Роль</p>
+            <select>
+                <option  value=@itemRole1>Значение 1</option>
+                <option value=@itemRole2 selected>Значение 2</option>
+                <option value=@itemRole3>Значение 3</option>
+                
+            </select>
+        </div>
+        
+        <div class="rowCard">
+            <p>Email</p>
+            <input @bind-value="@itemEmail"/>
+        </div>
+        
+        <div class="rowCard">
+            <p>Login</p>
+            <input @bind-value="@itemLogin"/>
+        </div>
+        
+        <div class="rowCard">
+            <p>Password</p>
+            <input @bind-value="@itemPassword"/>
+        </div>
+        
+        <button class="btnSing">Sign up</button>
+       
+        
+    </div>
+</div>
+
+
 
 @code {
-
+    String itemRole1 = "1";
+    String itemRole2 = "2";
+    String itemRole3 = "3";
+    String itemEmail = "";
+    String itemLogin = "";
+    String itemPassword = "";
 }
