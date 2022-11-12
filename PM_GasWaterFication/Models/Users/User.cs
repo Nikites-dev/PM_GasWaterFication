@@ -6,18 +6,16 @@ namespace PM_GasWaterFication.Models.Users
 {
     public class User
     {
-        private String login = "";
-        private String password = "";
-        private String role = "";
-        private String email = "";
         
         public User()
         {
             
         }
 
-        public User(String login, String password, String role, String email)
+        public User(String fName, String lName, String login, String password, String role, String email)
         {
+            FName = fName;
+            LName = lName;
             Login = login;
             Password = password;
             Role = role;
@@ -30,6 +28,13 @@ namespace PM_GasWaterFication.Models.Users
         }
         [BsonIgnoreIfDefault]
         public ObjectId _id;
+        
+        [BsonIgnoreIfDefault]
+        public String FName { get; set; }
+        
+        [BsonIgnoreIfDefault]
+        public String LName { get; set; }
+        
         [BsonIgnoreIfDefault]
         public String Login { get; set; }
         [BsonIgnoreIfDefault]

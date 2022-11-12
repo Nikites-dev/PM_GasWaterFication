@@ -1,4 +1,5 @@
 ﻿using System;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace PM_GasWaterFication.Models.Users
 {
@@ -19,10 +20,13 @@ namespace PM_GasWaterFication.Models.Users
             Department = department;
             Position = position;
         }
-        
+  
         public String FullName { get; set; }
+      
         public int NumPhone { get; set; }
+       
         public String Department { get; set; } // отдел, должность
+    
         public String Position { get; set; } // должность
     }
 }

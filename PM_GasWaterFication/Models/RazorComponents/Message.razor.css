@@ -1,0 +1,12 @@
+﻿
+
+.card {
+    position: absolute;
+    top: 700px;
+    left: 730px;
+    display: flex;
+    width: 200px;
+    height: 160px;
+    visibility: visible;
+    
+}

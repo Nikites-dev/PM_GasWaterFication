@@ -1,21 +1,36 @@
 ﻿@page "/signUp"
+@using PM_GasWaterFication.Models.RazorComponents
+@using PM_GasWaterFication.MongoDB
+@inject NavigationManager NavigationManager
+
+
 
 <div class="content">
    
     <div class="cardSign">
          <p class="pHeader"> SignUp </p>
          @* <p class="pHeader"> @selectRole</p> *@
-        <div class="rowCard">
-            <p>Роль</p>
-            <select @bind="selectRole">
-                <option  value=@itemRole1>Заказчик</option>
-                <option value=@itemRole2 selected>Проектирощик</option>
-                <option value=@itemRole3>Застройщик</option>
+         <div class="rowCard">
+             <p>Роль</p>
+             <select @bind="selectRole">
+                 <option  value=@itemRole1>Заказчик</option>
+                 <option value=@itemRole2>Проектирощик</option>
+                 <option value=@itemRole3>Застройщик</option>
                 
-            </select>
-        </div>
-        
-        <div class="rowCard">
+             </select>
+         </div>
+         
+         <div class="rowCard">
+             <p>FName</p>
+             <input @bind-value="@itemFName"/>
+         </div>
+         
+         <div class="rowCard">
+             <p>LName</p>
+             <input @bind-value="@itemLName"/>
+         </div>
+
+         <div class="rowCard">
             <p>Email</p>
             <input @bind-value="@itemEmail"/>
         </div>
@@ -31,13 +46,9 @@
         </div>
         
         <button class="btnSing" onclick="@isValidate">Sign up</button>
-       
-         <div class="contentLink">
-             <NavLink class="nav-link" href="client" Match="NavLinkMatch.All">
-                 <span class="oi oi-person" aria-hidden="true"></span> Sign in
-             </NavLink>
-         </div>
         
+         <Message Text="@msgText"></Message>
+         
     </div>
 </div>
 
@@ -48,6 +59,8 @@
     String itemRole2 = "Проектирощик";
     String itemRole3 = "Застройщик";
     
+    String itemFName = "";
+    String itemLName = "";
     String itemEmail = "";
     String itemLogin = "";
     String itemPassword = "";
@@ -56,19 +69,24 @@
 
     User user = new User();
 
-    
+    String msgText = "";
     
     public void isValidate()
     {
-        if (itemEmail != "" && itemLogin != "" && itemPassword != "")
+        if (itemFName != "" && itemLName != "" && itemEmail != "" && itemLogin != "" && itemPassword != "")
         {
             isUser();
             CreateAccount();
-        
+            NavigationManager.NavigateTo("signIn");
         }
-   
+        else
+        {
+            msgText = "something wrong";
+        }
+        
+    
+        
     }
-
 
     public void isUser()
     {
@@ -76,6 +94,7 @@
         {
             case "Заказчик":
                 user = new Client();
+                
                 break;
                 
             case "Проектирощик":
@@ -90,11 +109,13 @@
 
     public void CreateAccount()
     {
+        user.FName = itemFName;
+        user.LName = itemLName;
         user.Login = itemLogin;
         user.Password = itemPassword;
         user.Role = selectRole;
         user.Email = itemEmail;
-        
+
         MongoDBAction.AddToDatabase(user);
     }
 }

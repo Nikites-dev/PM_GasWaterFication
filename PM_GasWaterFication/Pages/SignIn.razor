@@ -1,0 +1,102 @@
+﻿@page "/signIn"
+@using PM_GasWaterFication.Models.RazorComponents
+@using PM_GasWaterFication.MongoDB
+@inject PM_GasWaterFication.MongoDB.MongoDBAction mongo
+@inject NavigationManager NavigationManager
+
+<div class="content">
+   
+    <div class="cardSign">
+         <p class="pHeader"> SignUp </p>
+         @* <p class="pHeader"> @selectRole</p> *@
+
+         <div class="rowCard">
+            <p>Login</p>
+            <input @bind-value="@itemLogin"/>
+        </div>
+        
+        <div class="rowCard">
+            <p>Password</p>
+            <input @bind-value="@itemPassword"/>
+        </div>
+        
+        <button class="btnSing" onclick="@isValidate">Sign up</button>
+
+         <Message/>
+         
+    </div>
+</div>
+
+
+
+@code {
+ 
+    String itemLogin = "";
+    String itemPassword = "";
+    
+    String selectRole="Y";
+
+   
+
+    
+    public void isValidate()
+    {
+        if (itemLogin != "" && itemPassword != "")
+        {
+           
+            FindAccount();
+          
+        }
+        
+        
+        
+    }
+
+    public void isUser(User user)
+    {
+   //     MongoDBAction mongo = new MongoDBAction();
+        
+        switch (user.Role)
+        {
+            case "Заказчик":
+                NavigationManager.NavigateTo("client");
+
+                if (user is Client client)
+                {
+                    mongo.isLoginClient = client;
+                }
+                
+              
+                break;
+                
+            case "Проектирощик":
+                // NavigationManager.NavigateTo("client");
+                break;
+                
+            case "Застройщик":
+                // NavigationManager.NavigateTo("client");
+                break;
+        }
+    }
+
+    public void FindAccount()
+    {
+        User user = new User();
+
+        
+        user = MongoDBAction.FindByName(itemLogin, itemPassword);
+
+        if (user is not null)
+        {
+            if (user.Role == "Заказчик")
+            {
+                Client client = new Client();
+            }
+        }
+        
+        
+        
+        isUser(user);
+        
+    }
+}
