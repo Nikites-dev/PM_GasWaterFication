@@ -6,92 +6,76 @@ namespace PM_GasWaterFication.MongoDB
 {
     public class MongoDBAction
     {
-
         public Client? isLoginClient { get; set; }
         public Designer? isLoginDesigner { get; set; }
         public Builder? isLoginBuilder { get; set; }
-
-
+        
         public static void AddToDatabase(User user)
         {
-            var client = new MongoClient("mongodb://localhost");
-            var database = client.GetDatabase("Fication");
+            var mongoClient = new MongoClient("mongodb://localhost");
+            var database = mongoClient.GetDatabase("Fication");
 
-
-            var collection = database.GetCollection<User>("UsersData");
-            collection.InsertOne(user);
+            if (user is Client client)
+            {
+                var collection = database.GetCollection<Client>("UsersData");
+                collection.InsertOne(client);
+            }
+            else if (user is Designer designer)
+            {
+                var collection = database.GetCollection<Designer>("UsersData");
+                collection.InsertOne(designer);
+            }
+            else if (user is Builder builder)
+            {
+                var collection = database.GetCollection<Builder>("UsersData");
+                collection.InsertOne(builder);
+            }
         }
 
-        // public static CharacterDb UnitToCharacter(String name, Unit unit)
-        // {
-        //     var client = new MongoClient("mongodb://localhost");
-        //     var database = client.GetDatabase("Warcraft");
-        //     CharacterDb db = new CharacterDb(
-        //         name,
-        //         unit.GetType().Name,
-        //         unit.CurrentStrensth, 
-        //         unit.CurrentDesterity,
-        //         unit.CurrentConstitution,
-        //         unit.CurrentIntellisense,
-        //         unit.Inventory,
-        //         unit.Exp,
-        //         unit.Equipments);
-        //     
-        //    return db;
-        // }
-        //
         public static User FindByName(String login, String password)
         {
             var client = new MongoClient("mongodb://localhost");
             var database = client.GetDatabase("Fication");
-            var collection = database.GetCollection<User>("UsersData");
-            User user = collection.Find(x => x.Login == login).FirstOrDefault();
 
+            User user;
+
+            try
+            {
+                var collection = database.GetCollection<Client>("UsersData");
+                user = collection.Find(x => x.Login == login).FirstOrDefault();
+            }
+            catch (Exception e1)
+            {
+                try
+                {
+                    var collection = database.GetCollection<Designer>("UsersData");
+                    user = collection.Find(x => x.Login == login).FirstOrDefault();
+                }
+                catch (Exception e2)
+                {
+                    try
+                    {
+                        var collection = database.GetCollection<Builder>("UsersData");
+                        user = collection.Find(x => x.Login == login).FirstOrDefault();
+                    }
+                    catch (Exception e3)
+                    {
+                        Console.WriteLine(e3);
+                        throw;
+                    }
+                }
+            }
 
             if (user == null)
             {
                 return null;
             }
 
-            // if (user.Password == password)
-            // {
-            //     return user;
-            // }
-
-
-
-            switch (user.Role)
+            if (user.Password == password)
             {
-                case "Заказчик":
-                    return new Client(
-                        user.Login,
-                        user.Password,
-                        user.FName + " " + user.LName,
-                        user.Email,
-                        45768,
-                        user.Role,
-                        user.LName
-                    );
-                    break;
-                    
-
-                case "Проектирощик":
-                    return new Designer();
-                    break;
-
-                    //     case "Застройщик":
-                    //         return new Rogue(unit.Strength,
-                    //                 unit.Dexterity,
-                    //                 unit.Constitution,
-                    //                 unit.Intellisense,
-                    //                 unit.Items,
-                    //                 unit.Exp,
-                    //                 unit.Equipments)
-                    //             { Name = unit.Name };
-                    //     default: return null;
-                    // }
-                
+                return user;
             }
+
             return null;
         }
 
