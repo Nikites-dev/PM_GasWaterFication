@@ -26,6 +26,9 @@ namespace PM_GasWaterFication.Models.Users
         {
             
         }
+        
+ 
+        
         [BsonIgnoreIfDefault]
         public ObjectId _id;
         
@@ -43,5 +46,6 @@ namespace PM_GasWaterFication.Models.Users
         public String Role { get; set; }
         [BsonIgnoreIfDefault]
         public String Email { get; set; }
+        
     }
 }

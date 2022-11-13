@@ -70,11 +70,21 @@
                 break;
                 
             case "Проектирощик":
-                // NavigationManager.NavigateTo("client");
+                NavigationManager.NavigateTo("designer");
+
+                if (user is Designer designer)
+                {
+                    mongo.isLoginDesigner = designer;
+                }
                 break;
                 
             case "Застройщик":
-                // NavigationManager.NavigateTo("client");
+                NavigationManager.NavigateTo("builder");
+
+                if (user is Builder builder)
+                {
+                    mongo.isLoginBuilder = builder;
+                }
                 break;
         }
     }

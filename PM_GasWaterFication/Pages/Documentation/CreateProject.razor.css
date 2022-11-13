@@ -1,0 +1,37 @@
+﻿p {
+    margin: 0;
+    padding: 0;
+}
+
+.content-prject {
+
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    flex-direction: column;
+    
+    background: #e5e583;
+    width: 500px;
+    height: 800px;
+}
+
+.row-box {
+    width: 90%;
+    margin: 10px;
+    background: mediumvioletred;
+}
+
+input {
+    width: 60%;
+}
+
+select {
+    padding-left: 65px;
+    padding-right: 65px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}

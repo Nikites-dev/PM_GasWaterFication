@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using MongoDB.Driver;
 using PM_GasWaterFication.Models.Users;
 
@@ -94,23 +96,40 @@ namespace PM_GasWaterFication.MongoDB
         //     var client = new MongoClient("mongodb://localhost");
         //     client.GetDatabase("Warcraft").DropCollectionAsync("HeroCollection");
         // }
-        //
-        // public static List<String> AddListHeroes()
-        // {
-        //     var client = new MongoClient("mongodb://localhost");
-        //     var database = client.GetDatabase("Warcraft");
-        //     var collection = database.GetCollection<CharacterDb>("HeroCollection");
-        //     var strNames = collection.Find<CharacterDb>(x => x.Name != null && x.Name != "")
-        //         .ToEnumerable<CharacterDb>();
-        //     return strNames.Select(x => x.Name).ToList<String>();
-        // }
-        //
-        // public static void UpdateByName(String name, Unit unit)
-        // {
-        //     var client = new MongoClient("mongodb://localhost");
-        //     var database = client.GetDatabase("Warcraft");
-        //     var collection = database.GetCollection<CharacterDb>("HeroCollection");
-        //     var b = collection.ReplaceOne(x => x.Name == name, UnitToCharacter(name, unit)).ModifiedCount > 0;
-        // }
+        
+        public static List<Builder> GetListDesigners()
+        {
+            var client = new MongoClient("mongodb://localhost");
+            var database = client.GetDatabase("Fication");
+            var collection = database.GetCollection<Builder>("UsersData");
+            List<Builder> strNames = collection.Find<Builder>(x => x.Login != null && x.Login != "").ToList();
+
+            return strNames;
+            // return strNames.Select(x => x.Login).ToList<String>();
+        }
+        
+        public static void UpdateByName(String name, Client unit)
+        {
+            var client = new MongoClient("mongodb://localhost");
+            var database = client.GetDatabase("Fication");
+            var collection = database.GetCollection<Client>("UsersData");
+            var b = collection.ReplaceOne(x => x.Login == name, unit).ModifiedCount > 0;
+        }
+        
+        public static void UpdateByName(String name, Designer unit)
+        {
+            var client = new MongoClient("mongodb://localhost");
+            var database = client.GetDatabase("Fication");
+            var collection = database.GetCollection<Designer>("UsersData");
+            var b = collection.ReplaceOne(x => x.Login == name, unit).ModifiedCount > 0;
+        }
+        
+        public static void UpdateByName(String name, Builder unit)
+        {
+            var client = new MongoClient("mongodb://localhost");
+            var database = client.GetDatabase("Fication");
+            var collection = database.GetCollection<Builder>("UsersData");
+            var b = collection.ReplaceOne(x => x.Login == name, unit).ModifiedCount > 0;
+        }
     }
 }

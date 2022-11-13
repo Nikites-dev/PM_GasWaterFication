@@ -9,7 +9,7 @@ namespace PM_GasWaterFication.Models.Users
             
         }
         
-        public String pBuilder { get; set; }
+        public String NameBuilder { get; set; }
         
         public int OGRN { get; set; } // 13
         

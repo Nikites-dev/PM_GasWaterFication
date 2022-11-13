@@ -2,6 +2,7 @@
 
 namespace PM_GasWaterFication.Models.Users
 {
+    
     public class Designer : User
     {
         public Designer()
@@ -9,7 +10,9 @@ namespace PM_GasWaterFication.Models.Users
             
         }
         
-        public String NameOrganiztion { get; set; }
+  
+        
+        public String NameOrganization { get; set; }
 
         public int OGRN { get; set; } // 13
         

@@ -1,0 +1,174 @@
+﻿@page "/designer"
+@using Microsoft.VisualBasic.CompilerServices
+@using PM_GasWaterFication.MongoDB
+@using PM_GasWaterFication.Pages.Documentation
+@inject PM_GasWaterFication.MongoDB.MongoDBAction mongo
+@inject CreateProject CreateProject
+
+<h3>ClientPage</h3>
+
+<div class="content-main">
+
+     <div class="content-left">
+            <p>Create project</p>
+        </div>
+    
+    <div class="content-right">
+        
+        <p class="pHeader">Person info</p>
+        
+        <div class="cardPerson">
+
+            <div class="card-row">
+                <p>First Name</p>
+                <input @bind-value="@userFName"/>
+            </div>
+
+            <div class="card-row">
+                <p>Last Name</p>
+                <input @bind-value="@userLName"/>
+            </div>
+
+            <div class="card-row">
+                <p>Login</p>
+                <input @bind-value="@userLogin"/>
+            </div>
+
+            <div class="card-row">
+                <p>Password</p>
+                <input @bind-value="@userPassword"/>
+            </div>
+
+            <div class="card-row">
+                <p>Email</p>
+                <input @bind-value="@userEmail"/>
+            </div>
+
+            <div class="card-row">
+                <p>Phone</p>
+                <input @bind-value="@userPhone"/>
+            </div>
+            
+            <div class="card-row">
+                <p>Role</p>
+                <input @bind-value="@userRole"/>
+            </div>
+            
+            
+            
+            
+            <div class="card-row">
+                <p>Organization</p>
+                <input @bind-value="@userNameOrganization"/>
+            </div>
+            
+            <div class="card-row">
+                <p>OGRN</p>
+                <input @bind-value="@userOGRN"/>
+            </div>
+            
+            <div class="card-row">
+                <p>INN</p>
+                <input @bind-value="@userINN"/>
+            </div>
+            
+            <div class="card-row">
+                <p>KPP</p>
+                <input @bind-value="@userKPP"/>
+            </div>
+            
+            
+            <div class="card-row">
+                <p>Address</p>
+                <input @bind-value="@userAddress"/>
+            </div>
+            
+            <div class="card-row">
+                <p>Director</p>
+                <input @bind-value="@userDirector"/>
+            </div>
+            
+            <div class="card-row">
+                <p>MainEngineer</p>
+                <input @bind-value="@userMainEngineer"/>
+            </div>
+
+
+
+
+        </div>
+        
+        <button class="btnSing" onclick="@UpdatePersonInfo">Save</button>
+        
+    </div>
+
+</div>
+
+
+@code {
+
+    String userFName = "";
+    String userLName = "";
+    String userEmail = "";
+    String userLogin = "";
+    String userPassword = "";
+    int userPhone = 0;
+    String userRole = "";
+
+    String userNameOrganization = "";
+    int userOGRN = 0;
+    int userINN = 0;
+    int userKPP = 0;
+    String userAddress = "";
+    String userDirector = "";
+    String userMainEngineer = "";
+
+    protected override void OnInitialized()
+    {
+
+        if (mongo.isLoginDesigner != null)
+        {
+            userFName = mongo.isLoginDesigner.FName;
+            userLName = mongo.isLoginDesigner.LName;
+            userEmail = mongo.isLoginDesigner.Email;
+            userLogin = mongo.isLoginDesigner.Login;
+            userPassword = mongo.isLoginDesigner.Password;
+            userRole = mongo.isLoginDesigner.Role;
+            userPhone = mongo.isLoginDesigner.NumPhone;
+            
+            userNameOrganization = mongo.isLoginDesigner.NameOrganization;
+            userOGRN = mongo.isLoginDesigner.OGRN;
+            userINN = mongo.isLoginDesigner.INN;
+            userKPP = mongo.isLoginDesigner.KPP;
+            userAddress = mongo.isLoginDesigner.Address;
+            userDirector = mongo.isLoginDesigner.Director;
+            userMainEngineer = mongo.isLoginDesigner.MainEngineer;
+        
+            
+        }
+    }
+
+    private void UpdatePersonInfo()
+    {
+        Designer designer = new Designer();
+
+        designer.FName = userFName;
+        designer.LName = userLName;
+        designer.Email = userEmail;
+        designer.Login = userLogin;
+        designer.Password = userPassword;
+        designer.Role = userRole;
+        designer.NumPhone = userPhone;
+    
+        designer.NameOrganization = userNameOrganization;
+        designer.OGRN = userOGRN;
+        designer.INN = userINN;
+        designer.KPP = userKPP;
+        designer.Address = userAddress;
+        designer.Director = userDirector;
+        designer.MainEngineer = userMainEngineer;
+
+
+        MongoDBAction.UpdateByName(userLogin, designer);
+    }
+}

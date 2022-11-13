@@ -1,35 +1,149 @@
 ﻿@page "/client"
 @using Microsoft.VisualBasic.CompilerServices
+@using PM_GasWaterFication.MongoDB
+@using PM_GasWaterFication.Pages.Documentation
 @inject PM_GasWaterFication.MongoDB.MongoDBAction mongo
+@inject CreateProject CreateProject
 
 <h3>ClientPage</h3>
-<h2>@userFname</h2>
 
+<div class="content-main">
+    
+    <div class="content-left">
+        <button onclick="@isCreate">Create project</button>
+    </div>
+    
+    
+    <div class="content-right">
+        
+        <p class="pHeader">Person info</p>
+        
+        <div class="cardPerson">
 
-@if (mongo.isLoginClient != null)
-{
-    <h3>Y</h3>
-}
+            <div class="card-row">
+                <p>First Name</p>
+                <input @bind-value="@userFName"/>
+            </div>
 
-@if (mongo.isLoginClient == null)
-{
-    <h3>N</h3>
-}
+            <div class="card-row">
+                <p>Last Name</p>
+                <input @bind-value="@userLName"/>
+            </div>
 
+            <div class="card-row">
+                <p>Login</p>
+                <input @bind-value="@userLogin"/>
+            </div>
+
+            <div class="card-row">
+                <p>Password</p>
+                <input @bind-value="@userPassword"/>
+            </div>
+
+            <div class="card-row">
+                <p>Email</p>
+                <input @bind-value="@userEmail"/>
+            </div>
+
+            <div class="card-row">
+                <p>Phone</p>
+                <input @bind-value="@userPhone"/>
+            </div>
+
+            <div class="card-row">
+                <p>Department</p>
+                <input @bind-value="@userDepartment"/>
+            </div>
+
+            <div class="card-row">
+                <p>Position</p>
+                <input @bind-value="@userPosition"/>
+            </div>
+            
+            <div class="card-row">
+                <p>Role</p>
+                <input @bind-value="@userRole"/>
+            </div>
+            
+        </div>
+        
+        <button class="btnSing" onclick="@UpdatePersonInfo">Save</button>
+        
+    </div>
+    
+    
+    @if (isCreteProject)
+    {
+        <CreateProject Client="@userDepartment"></CreateProject>
+    }
+    
+    
+    
+</div>
 
 
 @code {
 
-    String userFname = "null";
+    String userFName = "";
+    String userLName = "";
+    String userEmail = "";
+    String userLogin = "";
+    String userPassword = "";
+    int userPhone = 0;
+    String userDepartment = "";
+    String userPosition = "";
+    String userRole = "";
 
+    bool isCreteProject = false;
+
+    Client client = new Client();
 
     protected override void OnInitialized()
     {
 
         if (mongo.isLoginClient != null)
         {
-            userFname = mongo.isLoginClient.Email;
+            userFName = mongo.isLoginClient.FName;
+            userLName = mongo.isLoginClient.LName;
+            userEmail = mongo.isLoginClient.Email;
+            userLogin = mongo.isLoginClient.Login;
+            userPassword = mongo.isLoginClient.Password;
+            userRole = mongo.isLoginClient.Role;
+            userPhone = mongo.isLoginClient.NumPhone;
+            userDepartment = mongo.isLoginClient.Department;
+            userPosition = mongo.isLoginClient.Position;
         }
     }
 
+    private void UpdatePersonInfo()
+    {
+        
+
+        client.FName = userFName;
+        client.LName = userLName;
+        client.Email = userEmail;
+        client.Login = userLogin;
+        client.Password = userPassword;
+        client.Role = userRole;
+        client.NumPhone = userPhone;
+        client.Department = userDepartment;
+        client.Position = userPosition;
+        client.FullName = " ";
+
+
+        MongoDBAction.UpdateByName(userLogin, client);
+    }
+
+    private void isCreate()
+    {
+        if (!isCreteProject)
+        {
+            isCreteProject = true;
+        }
+        else
+        {
+            isCreteProject = false;
+        }
+        
+    }
 }

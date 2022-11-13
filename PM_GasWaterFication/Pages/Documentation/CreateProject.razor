@@ -1,0 +1,65 @@
+﻿@using Microsoft.AspNetCore.Components
+@using System.Reflection.Metadata
+@using PM_GasWaterFication.MongoDB
+
+<div class="content-prject">
+    <p>Create project</p>
+    
+    <div class="box-project">
+        
+        <div class="row-box">
+            <p>Отрасль</p>
+            <select @bind="selectRole">
+                <option value=@itemFication1>Газоснабжение</option>
+                <option value=@itemFication2>Водоснабжение</option>
+            </select>
+        </div>
+
+        <div class="row-box">
+            <p>Client</p>
+            <input @bind-value="@client"/>
+        </div>
+        
+        <div class="row-box">
+            <p>Designer</p>
+            <select @bind="selectRole">
+                
+                @foreach (var item in listDesigners)
+                {
+                    <option value=@itemFication1>@item.NameBuilder</option>
+                }
+            </select>
+        </div>
+
+        <div class="row-box">
+            <p>Builder</p>
+            <select @bind="selectRole">
+                <option value=@itemFication1>Газоснабжение</option>
+                <option value=@itemFication2>Водоснабжение</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+@code {
+    String itemFication1 = "Газоснабжение";
+    String itemFication2 = "Водоснабжение";
+    String selectRole = "Y";
+
+    List<Builder> listDesigners = new List<Builder>();
+
+    [Parameter]
+    public String client { get; set; }
+
+
+    protected override void OnInitialized()
+    {
+        GetLists();
+    }
+
+    public void GetLists()
+    {
+        listDesigners = MongoDBAction.GetListDesigners();
+    }
+
+}

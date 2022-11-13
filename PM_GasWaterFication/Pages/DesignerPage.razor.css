@@ -1,0 +1,71 @@
+﻿p {
+    margin: 0;
+    padding: 0;
+}
+
+.content-main {
+    position: absolute;
+    top: 0;
+    left: 230px;
+    display: flex;
+
+
+    background: lightpink;
+    width: 85%;
+    height: 2000px;
+}
+
+.content-right {
+
+
+    height: 400px;
+    width: 50%;
+    background: lightgreen;
+}
+
+.content-left {
+
+
+    height: 400px;
+    width: 50%;
+    background: lightseagreen;
+}
+
+
+.cardPerson {
+    display: flex;
+    background: lightslategray;
+    margin-top: 15px;
+    padding: 10px;
+    float: right;
+    width: 100%;
+    height: 70%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-row {
+    background: #0dcaf0;
+    margin: 3px;
+    padding: 2px;
+    height: 50px;
+}
+
+.pHeader {
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+}
+
+
+.btnSing {
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+    margin-bottom: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
