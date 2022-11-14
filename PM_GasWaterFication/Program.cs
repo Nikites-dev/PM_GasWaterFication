@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PM_GasWaterFication.Data;
+using PM_GasWaterFication.Models.Documents;
 using PM_GasWaterFication.MongoDB;
 using PM_GasWaterFication.Pages.Documentation;
 
@@ -15,6 +16,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddSingleton<MongoDBAction>();
 builder.Services.AddSingleton<CreateProject>();
+builder.Services.AddSingleton<ProjectData>();
 
 var app = builder.Build();
 

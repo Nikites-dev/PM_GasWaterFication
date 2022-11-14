@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using MongoDB.Driver;
+using PM_GasWaterFication.Models.Documents;
 using PM_GasWaterFication.Models.Users;
 
 namespace PM_GasWaterFication.MongoDB
@@ -19,17 +20,17 @@ namespace PM_GasWaterFication.MongoDB
 
             if (user is Client client)
             {
-                var collection = database.GetCollection<Client>("UsersData");
+                var collection = database.GetCollection<Client>("ClientData");
                 collection.InsertOne(client);
             }
             else if (user is Designer designer)
             {
-                var collection = database.GetCollection<Designer>("UsersData");
+                var collection = database.GetCollection<Designer>("DesignerData");
                 collection.InsertOne(designer);
             }
             else if (user is Builder builder)
             {
-                var collection = database.GetCollection<Builder>("UsersData");
+                var collection = database.GetCollection<Builder>("BuilderData");
                 collection.InsertOne(builder);
             }
         }
@@ -43,21 +44,21 @@ namespace PM_GasWaterFication.MongoDB
 
             try
             {
-                var collection = database.GetCollection<Client>("UsersData");
+                var collection = database.GetCollection<Client>("ClientData");
                 user = collection.Find(x => x.Login == login).FirstOrDefault();
             }
             catch (Exception e1)
             {
                 try
                 {
-                    var collection = database.GetCollection<Designer>("UsersData");
+                    var collection = database.GetCollection<Designer>("DesignerData");
                     user = collection.Find(x => x.Login == login).FirstOrDefault();
                 }
                 catch (Exception e2)
                 {
                     try
                     {
-                        var collection = database.GetCollection<Builder>("UsersData");
+                        var collection = database.GetCollection<Builder>("BuilderData");
                         user = collection.Find(x => x.Login == login).FirstOrDefault();
                     }
                     catch (Exception e3)
@@ -97,22 +98,38 @@ namespace PM_GasWaterFication.MongoDB
         //     client.GetDatabase("Warcraft").DropCollectionAsync("HeroCollection");
         // }
         
-        public static List<Builder> GetListDesigners()
+        public static List<Client> GetListClients()
         {
             var client = new MongoClient("mongodb://localhost");
             var database = client.GetDatabase("Fication");
-            var collection = database.GetCollection<Builder>("UsersData");
-            List<Builder> strNames = collection.Find<Builder>(x => x.Login != null && x.Login != "").ToList();
-
+            var collection = database.GetCollection<Client>("ClientData");
+            List<Client> strNames = collection.Find<Client>(x => x.Login != null && x.Login != "").ToList();
             return strNames;
-            // return strNames.Select(x => x.Login).ToList<String>();
+        }
+        
+        public static List<Designer> GetListDesigners()
+        {
+            var client = new MongoClient("mongodb://localhost");
+            var database = client.GetDatabase("Fication");
+            var collection = database.GetCollection<Designer>("DesignerData");
+            List<Designer> strNames = collection.Find<Designer>(x => x.Login != null && x.Login != "").ToList();
+            return strNames;
+        }
+        
+        public static List<Builder> GetListBuilders()
+        {
+            var client = new MongoClient("mongodb://localhost");
+            var database = client.GetDatabase("Fication");
+            var collection = database.GetCollection<Builder>("BuilderData");
+            List<Builder> strNames = collection.Find<Builder>(x => x.Login != null && x.Login != "").ToList();
+            return strNames;
         }
         
         public static void UpdateByName(String name, Client unit)
         {
             var client = new MongoClient("mongodb://localhost");
             var database = client.GetDatabase("Fication");
-            var collection = database.GetCollection<Client>("UsersData");
+            var collection = database.GetCollection<Client>("ClientData");
             var b = collection.ReplaceOne(x => x.Login == name, unit).ModifiedCount > 0;
         }
         
@@ -120,7 +137,7 @@ namespace PM_GasWaterFication.MongoDB
         {
             var client = new MongoClient("mongodb://localhost");
             var database = client.GetDatabase("Fication");
-            var collection = database.GetCollection<Designer>("UsersData");
+            var collection = database.GetCollection<Designer>("DesignerData");
             var b = collection.ReplaceOne(x => x.Login == name, unit).ModifiedCount > 0;
         }
         
@@ -128,8 +145,20 @@ namespace PM_GasWaterFication.MongoDB
         {
             var client = new MongoClient("mongodb://localhost");
             var database = client.GetDatabase("Fication");
-            var collection = database.GetCollection<Builder>("UsersData");
+            var collection = database.GetCollection<Builder>("BuilderData");
             var b = collection.ReplaceOne(x => x.Login == name, unit).ModifiedCount > 0;
+        }
+        
+        
+        
+        // ---------- Project -----------
+        
+        public static void AddProject(ProjectData project)
+        {
+            var mongoClient = new MongoClient("mongodb://localhost");
+            var database = mongoClient.GetDatabase("Fication");
+            var collection = database.GetCollection<ProjectData>("ProjectsData");
+            collection.InsertOne(project);
         }
     }
 }

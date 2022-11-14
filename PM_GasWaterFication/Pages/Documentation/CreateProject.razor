@@ -1,9 +1,15 @@
 ﻿@using Microsoft.AspNetCore.Components
 @using System.Reflection.Metadata
+@using PM_GasWaterFication.Models.Documents
 @using PM_GasWaterFication.MongoDB
+@inject ProjectData ProjectData
 
 <div class="content-prject">
     <p>Create project</p>
+    
+    <p>@selectRole</p>
+    <p>@selectBuilder</p>
+    <p>@selectDesigner</p>
     
     <div class="box-project">
         
@@ -22,21 +28,26 @@
         
         <div class="row-box">
             <p>Designer</p>
-            <select @bind="selectRole">
-                
+            <select @bind="selectDesigner">
                 @foreach (var item in listDesigners)
                 {
-                    <option value=@itemFication1>@item.NameBuilder</option>
+                    <option value=@item.Login>@item.Login</option>
                 }
             </select>
         </div>
 
         <div class="row-box">
             <p>Builder</p>
-            <select @bind="selectRole">
-                <option value=@itemFication1>Газоснабжение</option>
-                <option value=@itemFication2>Водоснабжение</option>
+            <select @bind="selectBuilder">
+                @foreach (var item in listBuilders)
+                {
+                    <option value=@item.Login>@item.Login</option>
+                }
             </select>
+        </div>
+        
+        <div class="row-box">
+            <button class="btn-primary" onclick="@isCreateProject">Создать</button>
         </div>
     </div>
 </div>
@@ -46,7 +57,11 @@
     String itemFication2 = "Водоснабжение";
     String selectRole = "Y";
 
-    List<Builder> listDesigners = new List<Builder>();
+    String selectDesigner = "Designer";
+    String selectBuilder = "Builder";
+
+    List<Designer> listDesigners = new List<Designer>();
+    List<Builder> listBuilders = new List<Builder>();
 
     [Parameter]
     public String client { get; set; }
@@ -60,6 +75,28 @@
     public void GetLists()
     {
         listDesigners = MongoDBAction.GetListDesigners();
+        listBuilders = MongoDBAction.GetListBuilders();
     }
 
+    private void isCreateProject()
+    {
+        ProjectData newProject = new ProjectData();
+
+        newProject.TypeProject = selectRole;
+        newProject.ClientPartner = client;
+        newProject.DesignerPartner = selectDesigner;
+        newProject.BuilderPartner = selectBuilder;
+        
+        newProject.ListDocsGas = new List<DocSource>
+        {
+            new DocSource("Акт обследования и выбора трассы сети водоснабжения", false, false, "no file"),
+            new DocSource("Акт обследования и выбор места под проектируемую скважину", false, false, "no file"),
+            new DocSource("Согласованный ситуационный план (М1:10000 или М1:25000) с нанесением источников воды (скважин, родников и тп.), существующих водонапорных башен, предполагаемой трассой водопровода и места врезки в существующую сеть", false, false, "no file")
+        };
+        
+        MongoDBAction.AddProject(newProject);
+    }
+
+}
+    
 }
