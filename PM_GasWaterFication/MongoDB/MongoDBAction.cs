@@ -160,5 +160,27 @@ namespace PM_GasWaterFication.MongoDB
             var collection = database.GetCollection<ProjectData>("ProjectsData");
             collection.InsertOne(project);
         }
+
+        public static List<ProjectData> GetListProjects(String partner)
+        {
+            var client = new MongoClient("mongodb://localhost");
+            var database = client.GetDatabase("Fication");
+            var collection = database.GetCollection<ProjectData>("ProjectsData");
+            List<ProjectData> listProjects =
+                collection.Find<ProjectData>(x => x.ClientPartner != null &&
+                                                  (x.BuilderPartner == partner ||
+                                                   x.ClientPartner == partner ||
+                                                   x.DesignerPartner == partner)).ToList();
+            return listProjects;
+        }
+        
+        
+        public static void UpdateByDate(String date, ProjectData projectData)
+        {
+            var client = new MongoClient("mongodb://localhost");
+            var database = client.GetDatabase("Fication");
+            var collection = database.GetCollection<ProjectData>("ProjectsData");
+            var b = collection.ReplaceOne(x => x.DataCreate == date, projectData).ModifiedCount > 0;
+        }
     }
 }

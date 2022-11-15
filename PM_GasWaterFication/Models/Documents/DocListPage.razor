@@ -1,0 +1,39 @@
+﻿@using PM_GasWaterFication.MongoDB
+<h3></h3>
+<button onclick="@isCheked">save</button>
+
+
+<table>
+    
+    <tr class="row-docs">
+        <td class="t1">Name</td>
+        <td>Important</td>
+        <td>Approve</td>
+        <td>Downolad</td>
+    </tr>
+
+    @foreach (var doc in ProjectData.ListDocs)
+    {
+        <tr class="row-docs">
+            <td class="t1"><p>@doc.Name</p></td>
+            <td><input type="checkbox" @bind-value=@doc.Important checked="@(doc.Important?"checked":null)"/></td>
+            <td><input type="checkbox" @bind-value=@doc.Approve checked="@(doc.Approve?"checked":null)"/></td>
+            <td><button>Скачать</button></td>
+        </tr>
+  
+    }
+</table>
+
+@code {
+
+    bool YourConditionTypeOfBool;
+    String s = "N";
+
+    [Parameter]
+    public ProjectData ProjectData { get; set; }
+
+    private void isCheked()
+    {
+        MongoDBAction.UpdateByDate(ProjectData.DataCreate, ProjectData);
+    }
+}   

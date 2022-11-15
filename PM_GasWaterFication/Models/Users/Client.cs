@@ -20,6 +20,9 @@ namespace PM_GasWaterFication.Models.Users
             Department = department;
             Position = position;
         }
+        
+        public String Fication { get; set; }
+        
         public String FullName { get; set; }
         public int NumPhone { get; set; }
         public String Department { get; set; } // отдел, должность

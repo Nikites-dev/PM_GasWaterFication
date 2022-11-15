@@ -1,0 +1,24 @@
+
+.p {
+    padding: 0;
+    margin: 0;
+}
+
+.row-docs {
+    display: flex;
+    padding: 10px;
+    flex-direction: row;
+    justify-content: space-around;
+    background: orangered;
+ 
+}
+
+.trHeader {
+    background: #616773;
+    color: white;
+    font-weight: bold;
+}
+
+.t1 {
+    width: 100%;
+}

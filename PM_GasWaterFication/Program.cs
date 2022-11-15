@@ -17,6 +17,8 @@ builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddSingleton<MongoDBAction>();
 builder.Services.AddSingleton<CreateProject>();
 builder.Services.AddSingleton<ProjectData>();
+builder.Services.AddSingleton<DocListPage>();
+builder.Services.AddSingleton<FormTable>();
 
 var app = builder.Build();
 
