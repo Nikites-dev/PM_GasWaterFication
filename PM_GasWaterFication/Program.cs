@@ -1,3 +1,4 @@
+using BlazorPMLabsUnits.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -17,6 +18,9 @@ builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddSingleton<MongoDBAction>();
 builder.Services.AddSingleton<CreateProject>();
 builder.Services.AddSingleton<ProjectData>();
+builder.Services.AddSingleton<DocListPage>();
+builder.Services.AddSingleton<FormTable>();
+builder.Services.AddSingleton<FileSystemService>();
 
 var app = builder.Build();
 

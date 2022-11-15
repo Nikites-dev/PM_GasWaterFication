@@ -40,44 +40,50 @@ namespace PM_GasWaterFication.MongoDB
             var client = new MongoClient("mongodb://localhost");
             var database = client.GetDatabase("Fication");
 
-            User user;
+            User user = new User();
 
-            try
-            {
-                var collection = database.GetCollection<Client>("ClientData");
-                user = collection.Find(x => x.Login == login).FirstOrDefault();
-            }
-            catch (Exception e1)
-            {
-                try
-                {
-                    var collection = database.GetCollection<Designer>("DesignerData");
-                    user = collection.Find(x => x.Login == login).FirstOrDefault();
-                }
-                catch (Exception e2)
-                {
-                    try
-                    {
-                        var collection = database.GetCollection<Builder>("BuilderData");
-                        user = collection.Find(x => x.Login == login).FirstOrDefault();
-                    }
-                    catch (Exception e3)
-                    {
-                        Console.WriteLine(e3);
-                        throw;
-                    }
-                }
-            }
+            bool isNull = false;
+
+
+            
+            var collection = database.GetCollection<Client>("ClientData");
+            user = collection.Find(x => x.Login == login).FirstOrDefault();
 
             if (user == null)
             {
-                return null;
+                var collection2 = database.GetCollection<Designer>("DesignerData");
+                user = collection2.Find(x => x.Login == login).FirstOrDefault();
+                
+                if (user == null)
+                {
+                    var collection3 = database.GetCollection<Builder>("BuilderData");
+                    user = collection3.Find(x => x.Login == login).FirstOrDefault();
+                    
+                    if (user.Password == password)
+                    {
+                        return user;
+                    }
+                    
+                }
+                else
+                {
+                    if (user.Password == password)
+                    {
+                        return user;
+                    }
+                }
+            }
+            else
+            {
+                if (user.Password == password)
+                {
+                    return user;
+                }
             }
 
-            if (user.Password == password)
-            {
-                return user;
-            }
+    
+
+            
 
             return null;
         }
@@ -159,6 +165,28 @@ namespace PM_GasWaterFication.MongoDB
             var database = mongoClient.GetDatabase("Fication");
             var collection = database.GetCollection<ProjectData>("ProjectsData");
             collection.InsertOne(project);
+        }
+
+        public static List<ProjectData> GetListProjects(String partner)
+        {
+            var client = new MongoClient("mongodb://localhost");
+            var database = client.GetDatabase("Fication");
+            var collection = database.GetCollection<ProjectData>("ProjectsData");
+            List<ProjectData> listProjects =
+                collection.Find<ProjectData>(x => x.ClientPartner != null &&
+                                                  (x.BuilderPartner == partner ||
+                                                   x.ClientPartner == partner ||
+                                                   x.DesignerPartner == partner)).ToList();
+            return listProjects;
+        }
+        
+        
+        public static void UpdateByDate(String date, ProjectData projectData)
+        {
+            var client = new MongoClient("mongodb://localhost");
+            var database = client.GetDatabase("Fication");
+            var collection = database.GetCollection<ProjectData>("ProjectsData");
+            var b = collection.ReplaceOne(x => x.DataCreate == date, projectData).ModifiedCount > 0;
         }
     }
 }

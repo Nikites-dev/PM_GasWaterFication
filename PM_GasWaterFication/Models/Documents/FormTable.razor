@@ -1,0 +1,128 @@
+﻿@using PM_GasWaterFication.MongoDB
+
+<div class="content">
+    <p>@ProjectData.TypeProject</p>
+    <table>
+        @if (ProjectData.TypeProject == "Водоснабжение")
+        {
+            <tr>
+                <td>Наименование</td>
+                <td>Примечание</td>
+            </tr>
+            
+            <tr>
+                <td colspan="2">Технико-экономические показатели (ТЭП)</td>
+            </tr>
+            
+            <tr>
+                <td>Диаметр (мм) трубопровода и протяженность | — 3100 м, линейного объекта (м)</td>
+                <td><input disabled="@isChanged" @bind-value="@item1"/></td>
+            </tr>
+            
+            <tr>
+                <td>Производительность БОС, м/сут</td>
+               <td><input disabled="@isChanged" @bind-value="@item2"/></td>
+            </tr>
+            
+            <tr>
+                <td>ол.-во (шт) и производительность КНС (м?/ч)</td>
+             <td><input disabled="@isChanged" @bind-value="@item3"/></td>
+            </tr>
+            
+            <tr>
+                <td>Сметная стоимость работ, тыс. руб.</td>
+              <td><input disabled="@isChanged" @bind-value="@item4"/></td>
+            </tr>
+            
+            <tr>
+                <td>Срок разработки проектной документации, месяцев</td>
+                <td><input disabled="@isChanged" @bind-value="@item5"/></td>
+            </tr>
+            
+            <tr>
+                <td hidden="@isChanged"><button onclick="@Update">Update</button></td>
+               
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <td>Наименование</td>
+                <td>Примечание</td>
+            </tr>
+            
+            <tr>
+                <td colspan="2">Технико-экономические показатели (ТЭП)
+                    Газопровод-ввод низкого давления</td>
+            </tr>
+            
+            <tr>
+               <td>Диаметр (мм) трубопровода и протяженность линейного объекта (м)</td>
+              <td><input disabled="@isChanged" @bind-value="@item1"/></td>
+            </tr>
+            
+            <tr>
+                <td colspan="2">Вводной газопровод низкого давления</td>
+            </tr>
+            
+            <tr>
+                <td>Диаметр (мм) трубопровода и протяженность линейного объекта (м)</td>
+                <td><input disabled="@isChanged" @bind-value="@item2"/></td>
+            </tr>
+            
+            <tr>
+                <td>Сметная стоимость работ, тыс. руб.</td>
+              <td><input disabled="@isChanged" @bind-value="@item3"/></td>
+            </tr>
+            
+            <tr>
+                <td>Срок разработки проектной документации, месяцев</td>
+                <td><input disabled="@isChanged" @bind-value="@item4"/></td>
+            </tr>
+            
+          
+        }
+        
+
+
+
+    </table>
+</div>
+
+@code {
+
+    String item1 = "";
+    String item2 = "";
+    String item3 = "";
+    String item4 = "";
+    String item5 = "";
+    String item6 = "";
+
+    [Parameter]
+    public ProjectData ProjectData { get; set; }
+    
+    [Parameter]
+    public bool isChanged { get; set; }
+
+
+    protected override void OnInitialized()
+    {
+        item1 = ProjectData.ListForm[0].Summary;
+        item2 = ProjectData.ListForm[1].Summary;
+        item3 = ProjectData.ListForm[2].Summary;
+        item4 = ProjectData.ListForm[3].Summary;
+        item5 = ProjectData.ListForm[4].Summary;
+    }
+    
+    private void Update()
+    {
+        ProjectData.ListForm[0].Summary = item1;
+        ProjectData.ListForm[1].Summary = item2;
+        ProjectData.ListForm[2].Summary = item3;
+        ProjectData.ListForm[3].Summary = item4;
+        ProjectData.ListForm[4].Summary = item5;
+        
+        MongoDBAction.UpdateByDate(ProjectData.DataCreate, ProjectData);
+    }
+    
+}

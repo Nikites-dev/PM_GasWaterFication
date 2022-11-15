@@ -24,7 +24,11 @@ namespace PM_GasWaterFication.Models.Documents
         public String DesignerPartner { get; set; }
         
         public String BuilderPartner { get; set; }
+        
+        public String DataCreate { get; set; }
 
-        public List<DocSource> ListDocsGas { get; set; }
+        public List<DocSource> ListDocs { get; set; }
+        
+        public List<DocForm> ListForm { get; set; }
     }
 }

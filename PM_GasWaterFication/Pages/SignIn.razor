@@ -7,7 +7,7 @@
 <div class="content">
    
     <div class="cardSign">
-         <p class="pHeader"> SignUp </p>
+         <p class="pHeader"> Sign in </p>
          @* <p class="pHeader"> @selectRole</p> *@
 
          <div class="rowCard">
@@ -20,7 +20,7 @@
             <input @bind-value="@itemPassword"/>
         </div>
         
-        <button class="btnSing" onclick="@isValidate">Sign up</button>
+        <button class="btnSing" onclick="@isValidate">Sign in</button>
 
          <Message/>
          
@@ -69,7 +69,7 @@
               
                 break;
                 
-            case "Проектирощик":
+            case "Проектировщик":
                 NavigationManager.NavigateTo("designer");
 
                 if (user is Designer designer)
@@ -101,6 +101,16 @@
             if (user.Role == "Заказчик")
             {
                 Client client = new Client();
+            }
+            
+            if (user.Role == "Проектировщик")
+            {
+                Designer designer = new Designer();
+            }
+            
+            if (user.Role == "Застройщик")
+            {
+                Builder builder = new Builder();
             }
         }
         

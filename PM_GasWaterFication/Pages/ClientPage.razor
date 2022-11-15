@@ -1,16 +1,35 @@
 ﻿@page "/client"
 @using Microsoft.VisualBasic.CompilerServices
+@using PM_GasWaterFication.Models.Documents
 @using PM_GasWaterFication.MongoDB
 @using PM_GasWaterFication.Pages.Documentation
+@using ProjectData = PM_GasWaterFication.Models.Documents.ProjectData
 @inject PM_GasWaterFication.MongoDB.MongoDBAction mongo
 @inject CreateProject CreateProject
+@inject DocListPage DocListPage
+@inject FormTable FormTable
 
 <h3>ClientPage</h3>
 
 <div class="content-main">
     
     <div class="content-left">
-        <button onclick="@isCreate">Create project</button>
+        <div class="left-row1">
+            <button onclick="@isCreate">Create project</button>    
+            <button onclick="@isChooseFormBtn">Documentation</button>    
+        </div>
+        
+        <div class="left-row2">
+          
+              @foreach (var project in projects)
+              {
+                  <div class="scroll-row">
+                      <p>@project.DataCreate</p>
+                      <button @onclick="(() => isChoose(project))">Подробнее</button>
+                  </div>
+              }
+        </div>
+        
     </div>
     
     
@@ -72,12 +91,29 @@
     </div>
     
     
+    <div class="content-bottom">
+        @if(isChooseProject == true) 
+        {
+           <DocListPage ProjectData="@curentProject" intRole="1"></DocListPage>
+          
+        }
+    </div>
+
     @if (isCreteProject)
     {
         <CreateProject Client="@userDepartment"></CreateProject>
     }
     
+     @if (isChooseForm)
+    {
+        <FormTable ProjectData="@curentProject" isChanged="true"></FormTable>
+    }
     
+    
+    @* @if (isChooseProject) *@
+    @* { *@
+    @*     <CreateProject Client="@userDepartment"></CreateProject> *@
+    @* } *@
     
 </div>
 
@@ -95,8 +131,14 @@
     String userRole = "";
 
     bool isCreteProject = false;
+    bool isChooseProject = false;
+    bool isChooseForm= false;
+   
 
     Client client = new Client();
+
+    List<ProjectData> projects = new List<ProjectData>();
+    ProjectData curentProject = new ProjectData();
 
     protected override void OnInitialized()
     {
@@ -113,6 +155,8 @@
             userDepartment = mongo.isLoginClient.Department;
             userPosition = mongo.isLoginClient.Position;
         }
+
+        projects = MongoDBAction.GetListProjects(userDepartment);
     }
 
     private void UpdatePersonInfo()
@@ -146,4 +190,27 @@
         }
         
     }
+    
+    private void isChoose(ProjectData project)
+    {
+        if (curentProject != null)
+        {
+            curentProject = project;
+            isChooseProject = true;
+        }
+    }
+    
+    private void isChooseFormBtn()
+    {
+        if (curentProject != null && isChooseProject && !isChooseForm)
+        {
+            isChooseForm = true;
+        }
+        else
+        {
+            isChooseForm = false;
+        }
+
+    }
+    
 }

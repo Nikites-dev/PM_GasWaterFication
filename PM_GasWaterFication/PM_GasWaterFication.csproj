@@ -13,4 +13,9 @@
     <PackageReference Include="MongoDB.Driver.GridFS" Version="2.18.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\GasFolder" />
+    <Folder Include="wwwroot\WaterFolder" />
+  </ItemGroup>
+
 </Project>

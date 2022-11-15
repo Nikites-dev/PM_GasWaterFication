@@ -1,0 +1,168 @@
+﻿@using PM_GasWaterFication.MongoDB
+@using BlazorPMLabsUnits.Models
+@using System.IO
+@inject FileSystemService FileSystemService
+
+
+<h3></h3>
+<button onclick="@isCheked">save</button>
+
+
+<table>
+    
+    <tr class="row-docs">
+        <td class="t1">Name</td>
+        <td>Important</td>
+        <td>Approve</td>
+        @* <td>Downolad</td> *@
+        <td>@ProjectData.TypeProject</td>
+    </tr>
+
+    @if (ProjectData.ListDocs != null && intRole == 1)
+    {
+        @foreach (var doc in ProjectData.ListDocs)
+        {
+            <tr class="row-docs">
+                <td class="t1"><p>@doc.Name</p></td>
+                <td><input type="checkbox" @bind-value=@doc.Important checked="@(doc.Important?"checked":null)"/></td>
+                <td><input type="checkbox" @bind-value=@doc.Approve checked="@(doc.Approve?"checked":null)"/></td>
+                <td><button @onclick="(() => DownloadDoc(ProjectData, doc))">@doc.FileName</button></td>
+            </tr>
+        }
+    }
+    
+    @if (ProjectData.ListDocs != null && intRole == 2)
+        {
+            <tr class="row-docs">
+                <td class="t1"><p>@ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Name</p></td>
+                <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Important checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Important?"checked":null)"/></td>
+                <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Approve checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Approve?"checked":null)"/></td>
+                
+                <button @onclick="(() => isChoosed(ProjectData.ListDocs[ProjectData.ListDocs.Count-2], ProjectData.ListDocs.Count-2))">Загрузить</button>
+                 
+                @* <InputFile  OnChange="@LoadFiles" class="btnDb" multiple/> *@
+                
+               
+                    <InputFile disabled="@isSelect[ProjectData.ListDocs.Count-2]" OnChange="@LoadFiles" class="btnDb" multiple/>
+             
+                
+                
+            </tr>
+            
+            <tr class="row-docs">
+                <td class="t1"><p>@ProjectData.ListDocs[ProjectData.ListDocs.Count-1].Name</p></td>
+                <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[ProjectData.ListDocs.Count-1].Important checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-1].Important?"checked":null)"/></td>
+                <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[ProjectData.ListDocs.Count-1].Approve checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-1].Approve?"checked":null)"/></td>
+                
+                <button @onclick="(() => isChoosed(ProjectData.ListDocs[ProjectData.ListDocs.Count-1], ProjectData.ListDocs.Count-1))">Загрузить</button>
+                
+               
+                <InputFile disabled="@isSelect[ProjectData.ListDocs.Count-1]" OnChange="@LoadFiles" class="btnDb" multiple/>
+                
+                
+            </tr>
+        }
+    
+    
+    
+    
+</table>
+
+@code {
+    string? path;
+    string? fileName;
+    List<string> names = new List<string>();
+    List<IBrowserFile> _loadedFiles = new();
+    List<String> loadImgNames = new List<string>();
+
+    DocSource chooseDocSource = null;
+    
+    bool isChooseDoc;
+
+    List<bool> isSelect = new List<bool> {true, true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true};
+
+    private String edImgName = "";
+    
+    List<String> imgNames = FileSystemService.GetNamesOfDir();
+    
+    
+    bool YourConditionTypeOfBool;
+    String s = "N";
+
+
+    [Parameter]
+    public ProjectData ProjectData { get; set; }
+    
+    [Parameter]
+    public int intRole { get; set; }
+
+
+    private void isChoosed(DocSource docSource, int indx)
+    {
+        for (int i = 0; i < isSelect.Count; i++)
+        {
+            isSelect[i] = true;
+        }
+
+
+            if (isSelect[indx])
+        {
+            isSelect[indx] = false;
+            chooseDocSource = docSource;
+        }
+        else
+        {
+            isSelect[indx] = true;
+            chooseDocSource = docSource;
+        }
+        
+    }
+    
+    private void isCheked()
+    {
+        MongoDBAction.UpdateByDate(ProjectData.DataCreate, ProjectData);
+        
+    }
+
+    private async Task LoadFiles(InputFileChangeEventArgs e)
+    {
+        _loadedFiles.Clear();
+        foreach (var file in e.GetMultipleFiles(e.FileCount))
+        {
+            _loadedFiles.Add(file);
+            
+            Stream stream = file.OpenReadStream();
+
+            await FileSystemService.UploadImageToDbAsync(stream, file.Name);
+            stream.Dispose();
+
+
+            foreach (var doc in ProjectData.ListDocs)
+            {
+                if (doc == chooseDocSource)
+                {
+                    doc.FileName = file.Name;
+                    isCheked();
+                }
+            }
+        }
+    // LoadNames();
+        // FileSystemService sService = new FileSystemService();
+        // loadImgNames = sService.DownloadToLocal();
+        // imgNames = FileSystemService.GetNamesOfDir();
+    }
+
+
+    private void DownloadDoc(ProjectData project, DocSource doc)
+    {
+        
+        FileSystemService.DownloadToLocalByName(doc.FileName);
+        
+    }
+
+    protected override void OnInitialized()
+    {
+        FileSystemService.ClearDir();
+    }
+
+}   
