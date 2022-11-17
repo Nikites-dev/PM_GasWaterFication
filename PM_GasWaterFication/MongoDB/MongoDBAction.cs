@@ -58,11 +58,20 @@ namespace PM_GasWaterFication.MongoDB
                 {
                     var collection3 = database.GetCollection<Builder>("BuilderData");
                     user = collection3.Find(x => x.Login == login).FirstOrDefault();
-                    
-                    if (user.Password == password)
+
+                    if (user != null)
                     {
-                        return user;
+                        if (user.Password == password)
+                        {
+                            return user;
+                        }
                     }
+                    else
+                    {
+                        
+                    }
+                    
+                    
                     
                 }
                 else

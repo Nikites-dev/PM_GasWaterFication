@@ -62,8 +62,10 @@
     public void isUser(User user)
     {
    //     MongoDBAction mongo = new MongoDBAction();
-        
-        switch (user.Role)
+
+        if (user != null)
+        {
+            switch (user.Role)
         {
             case "Заказчик":
                 NavigationManager.NavigateTo("client");
@@ -93,6 +95,7 @@
                     mongo.isLoginBuilder = builder;
                 }
                 break;
+        }
         }
     }
 
