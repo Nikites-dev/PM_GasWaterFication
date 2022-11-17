@@ -2,84 +2,88 @@
 
 <div class="content">
     <p>@ProjectData.TypeProject</p>
-    <table>
+    <table class="tab-content">
         @if (ProjectData.TypeProject == "Водоснабжение")
         {
-            <tr>
+            <tr class="tableRow">
                 <td>Наименование</td>
                 <td>Примечание</td>
             </tr>
             
-            <tr>
+            <tr class="tableRow">
                 <td colspan="2">Технико-экономические показатели (ТЭП)</td>
             </tr>
             
-            <tr>
+            <tr class="tableRow">
                 <td>Диаметр (мм) трубопровода и протяженность | — 3100 м, линейного объекта (м)</td>
                 <td><input disabled="@isChanged" @bind-value="@item1"/></td>
             </tr>
             
-            <tr>
+            <tr class="tableRow">
                 <td>Производительность БОС, м/сут</td>
                <td><input disabled="@isChanged" @bind-value="@item2"/></td>
             </tr>
             
-            <tr>
+            <tr class="tableRow">
                 <td>ол.-во (шт) и производительность КНС (м?/ч)</td>
              <td><input disabled="@isChanged" @bind-value="@item3"/></td>
             </tr>
             
-            <tr>
+            <tr class="tableRow">
                 <td>Сметная стоимость работ, тыс. руб.</td>
               <td><input disabled="@isChanged" @bind-value="@item4"/></td>
             </tr>
             
-            <tr>
+            <tr class="tableRow">
                 <td>Срок разработки проектной документации, месяцев</td>
                 <td><input disabled="@isChanged" @bind-value="@item5"/></td>
             </tr>
             
-            <tr>
-                <td hidden="@isChanged"><button onclick="@Update">Update</button></td>
+            <tr class="tableRow">
+                <td class="btnRow" hidden="@isChanged"><button onclick="@Update">Update</button></td>
                
             </tr>
         }
         else
         {
-            <tr>
+            <tr class="tableRow">
                 <td>Наименование</td>
                 <td>Примечание</td>
             </tr>
             
-            <tr>
+            <tr class="tableRow">
                 <td colspan="2">Технико-экономические показатели (ТЭП)
                     Газопровод-ввод низкого давления</td>
             </tr>
             
-            <tr>
+            <tr class="tableRow">
                <td>Диаметр (мм) трубопровода и протяженность линейного объекта (м)</td>
               <td><input disabled="@isChanged" @bind-value="@item1"/></td>
             </tr>
             
-            <tr>
+            <tr class="tableRow">
                 <td colspan="2">Вводной газопровод низкого давления</td>
             </tr>
             
-            <tr>
+            <tr class="tableRow">
                 <td>Диаметр (мм) трубопровода и протяженность линейного объекта (м)</td>
                 <td><input disabled="@isChanged" @bind-value="@item2"/></td>
             </tr>
             
-            <tr>
+            <tr class="tableRow">
                 <td>Сметная стоимость работ, тыс. руб.</td>
               <td><input disabled="@isChanged" @bind-value="@item3"/></td>
             </tr>
             
-            <tr>
+            <tr class="tableRow">
                 <td>Срок разработки проектной документации, месяцев</td>
                 <td><input disabled="@isChanged" @bind-value="@item4"/></td>
             </tr>
             
+            <tr class="tableRow">
+                <td class="btnRow" hidden="@isChanged"><button onclick="@Update">Update</button></td>
+               
+            </tr>
           
         }
         

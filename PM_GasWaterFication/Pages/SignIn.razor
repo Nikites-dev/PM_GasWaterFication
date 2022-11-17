@@ -4,28 +4,21 @@
 @inject PM_GasWaterFication.MongoDB.MongoDBAction mongo
 @inject NavigationManager NavigationManager
 
-<div class="content">
-   
-    <div class="cardSign">
-         <p class="pHeader"> Sign in </p>
-         @* <p class="pHeader"> @selectRole</p> *@
+<h3 hidden="@hideH3">Sign in</h3>
 
-         <div class="rowCard">
-            <p>Login</p>
-            <input @bind-value="@itemLogin"/>
-        </div>
-        
-        <div class="rowCard">
-            <p>Password</p>
-            <input @bind-value="@itemPassword"/>
-        </div>
-        
-        <button class="btnSing" onclick="@isValidate">Sign in</button>
-
-         <Message/>
-         
+<div hidden="@hideCardSignIn" class="cardSign">
+    <div class="rowContent">
+        <p>Login</p>
+        <input class="inputCard" @bind-value="@itemLogin" />
+    </div>
+    
+    <div class="rowContent">
+        <p style="color: @colorCurrent" >Password</p>
+        <input type="password" class="inputCard" @bind-value="@itemPassword"/>
     </div>
 </div>
+
+<button hidden="@hideButtonSignIn" class="btnSign" @onclick="@isValidate">Sign in</button> 
 
 
 
@@ -37,6 +30,20 @@
     String selectRole="Y";
 
    
+    bool hideLabel = true;
+    bool hideCardSignIn = false;
+    bool hideCardPerson = true;
+    bool hideCardCorner = true;
+    bool hideH3 = false;
+    bool hideButtonSignIn = false;
+    bool hideButtonSignOut = true;
+    
+    
+    
+    String colorGray = "#494949";
+    String colorGreen = "lightgreen";
+    String colorRed = "#ee9090";
+    String colorCurrent = "#494949";
 
     
     public void isValidate()

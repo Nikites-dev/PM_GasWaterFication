@@ -5,17 +5,13 @@
 @inject ProjectData ProjectData
 
 <div class="content-prject">
-    <p>Create project</p>
-    
-    <p>@selectRole</p>
-    <p>@selectBuilder</p>
-    <p>@selectDesigner</p>
-    
+    <h3>Create project</h3>
+
     <div class="box-project">
         
         <div class="row-box">
             <p>Отрасль</p>
-            <select @bind="selectRole">
+            <select class="selectCard" @bind="selectRole">
                 <option value=@itemFication1>Газоснабжение</option>
                 <option value=@itemFication2>Водоснабжение</option>
             </select>
@@ -23,12 +19,12 @@
 
         <div class="row-box">
             <p>Client</p>
-            <input @bind-value="@client"/>
+            <input class="inputCard" @bind-value="@client"/>
         </div>
         
         <div class="row-box">
             <p>Designer</p>
-            <select @bind="selectDesigner">
+            <select class="selectCard" @bind="selectDesigner">
                 @foreach (var item in listDesigners)
                 {
                     <option value=@item.Login>@item.Login</option>
@@ -38,7 +34,7 @@
 
         <div class="row-box">
             <p>Builder</p>
-            <select @bind="selectBuilder">
+            <select class="selectCard" @bind="selectBuilder">
                 @foreach (var item in listBuilders)
                 {
                     <option value=@item.Login>@item.Login</option>
@@ -47,7 +43,7 @@
         </div>
         
         <div class="row-box">
-            <button class="btn-primary" onclick="@isCreateProject">Создать</button>
+            <button class="btnCreate" onclick="@isCreateProject">Создать</button>
         </div>
     </div>
 </div>

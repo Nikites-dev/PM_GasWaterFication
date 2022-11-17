@@ -5,17 +5,16 @@
 
 
 <h3></h3>
-<button onclick="@isCheked">save</button>
+<button class="btnRow" onclick="@isCheked">save</button>
 
 
 <table>
-    
-    <tr class="row-docs">
+<tr class="trHeader">
         <td class="t1">Name</td>
         <td>Important</td>
         <td>Approve</td>
-        @* <td>Downolad</td> *@
-        <td>@ProjectData.TypeProject</td>
+        <td>Downolad</td>
+        <td> </td>
     </tr>
 
     @if (ProjectData.ListDocs != null && intRole == 1)
@@ -26,7 +25,7 @@
                 <td class="t1"><p>@doc.Name</p></td>
                 <td><input type="checkbox" @bind-value=@doc.Important checked="@(doc.Important?"checked":null)"/></td>
                 <td><input type="checkbox" @bind-value=@doc.Approve checked="@(doc.Approve?"checked":null)"/></td>
-                <td><button @onclick="(() => DownloadDoc(ProjectData, doc))">@doc.FileName</button></td>
+                <td><button class="btnRow" @onclick="(() => DownloadDoc(ProjectData, doc))">@doc.FileName</button></td>
             </tr>
         }
     }
@@ -38,7 +37,7 @@
             <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Important checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Important?"checked":null)"/></td>
             <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Approve checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Approve?"checked":null)"/></td>
             
-            <button @onclick="(() => isChoosed(ProjectData.ListDocs[ProjectData.ListDocs.Count-2], ProjectData.ListDocs.Count-2))">Загрузить</button>
+            <button class="btnRow" @onclick="(() => isChoosed(ProjectData.ListDocs[ProjectData.ListDocs.Count-2], ProjectData.ListDocs.Count-2))">Загрузить</button>
             <InputFile disabled="@isSelect[ProjectData.ListDocs.Count-2]" OnChange="@LoadFiles" class="btnDb" multiple/>
             
         </tr>
@@ -48,7 +47,7 @@
             <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[ProjectData.ListDocs.Count-1].Important checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-1].Important?"checked":null)"/></td>
             <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[ProjectData.ListDocs.Count-1].Approve checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-1].Approve?"checked":null)"/></td>
             
-            <button @onclick="(() => isChoosed(ProjectData.ListDocs[ProjectData.ListDocs.Count-1], ProjectData.ListDocs.Count-1))">Загрузить</button>
+            <button class="btnRow" @onclick="(() => isChoosed(ProjectData.ListDocs[ProjectData.ListDocs.Count-1], ProjectData.ListDocs.Count-1))">Загрузить</button>
             <InputFile disabled="@isSelect[ProjectData.ListDocs.Count-1]" OnChange="@LoadFiles" class="btnDb" multiple/>
         </tr>
     }
@@ -62,7 +61,7 @@
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[0].Important checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Important?"checked":null)"/></td>
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[0].Approve checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Approve?"checked":null)"/></td>
             
-                <button @onclick="(() => isChoosed(ProjectData.ListDocs[0], 0))">Загрузить</button>
+                <button class="btnRow" @onclick="(() => isChoosed(ProjectData.ListDocs[0], 0))">Загрузить</button>
                 <InputFile disabled="@isSelect[0]" OnChange="@LoadFiles" class="btnDb" multiple/>
             </tr>
             
@@ -71,7 +70,7 @@
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[1].Important checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Important?"checked":null)"/></td>
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[1].Approve checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Approve?"checked":null)"/></td>
             
-                <button @onclick="(() => isChoosed(ProjectData.ListDocs[1], 1))">Загрузить</button>
+                <button class="btnRow" @onclick="(() => isChoosed(ProjectData.ListDocs[1], 1))">Загрузить</button>
                 <InputFile disabled="@isSelect[1]" OnChange="@LoadFiles" class="btnDb" multiple/>
             </tr>
             
@@ -80,7 +79,7 @@
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[1].Important checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Important?"checked":null)"/></td>
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[1].Approve checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Approve?"checked":null)"/></td>
             
-                <button @onclick="(() => isChoosed(ProjectData.ListDocs[2], 2))">Загрузить</button>
+                <button class="btnRow" @onclick="(() => isChoosed(ProjectData.ListDocs[2], 2))">Загрузить</button>
                 <InputFile disabled="@isSelect[2]" OnChange="@LoadFiles" class="btnDb" multiple/>
             </tr>
             
@@ -89,7 +88,7 @@
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[1].Important checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Important?"checked":null)"/></td>
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[1].Approve checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Approve?"checked":null)"/></td>
             
-                <button @onclick="(() => isChoosed(ProjectData.ListDocs[3], 3))">Загрузить</button>
+                <button class="btnRow" @onclick="(() => isChoosed(ProjectData.ListDocs[3], 3))">Загрузить</button>
                 <InputFile disabled="@isSelect[3]" OnChange="@LoadFiles" class="btnDb" multiple/>
             </tr>
             
@@ -98,7 +97,7 @@
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[1].Important checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Important?"checked":null)"/></td>
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[1].Approve checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Approve?"checked":null)"/></td>
             
-                <button @onclick="(() => isChoosed(ProjectData.ListDocs[4], 4))">Загрузить</button>
+                <button class="btnRow" @onclick="(() => isChoosed(ProjectData.ListDocs[4], 4))">Загрузить</button>
                 <InputFile disabled="@isSelect[4]" OnChange="@LoadFiles" class="btnDb" multiple/>
             </tr>
             
@@ -107,7 +106,7 @@
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[5].Important checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Important?"checked":null)"/></td>
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[5].Approve checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Approve?"checked":null)"/></td>
             
-                <button @onclick="(() => isChoosed(ProjectData.ListDocs[5], 5))">Загрузить</button>
+                <button class="btnRow" @onclick="(() => isChoosed(ProjectData.ListDocs[5], 5))">Загрузить</button>
                 <InputFile disabled="@isSelect[5]" OnChange="@LoadFiles" class="btnDb" multiple/>
             </tr>
             
@@ -116,7 +115,7 @@
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[1].Important checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Important?"checked":null)"/></td>
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[1].Approve checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Approve?"checked":null)"/></td>
             
-                <button @onclick="(() => isChoosed(ProjectData.ListDocs[6], 6))">Загрузить</button>
+                <button class="btnRow" @onclick="(() => isChoosed(ProjectData.ListDocs[6], 6))">Загрузить</button>
                 <InputFile disabled="@isSelect[6]" OnChange="@LoadFiles" class="btnDb" multiple/>
             </tr>
             
@@ -125,7 +124,7 @@
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[1].Important checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Important?"checked":null)"/></td>
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[1].Approve checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Approve?"checked":null)"/></td>
             
-                <button @onclick="(() => isChoosed(ProjectData.ListDocs[7], 7))">Загрузить</button>
+                <button class="btnRow" @onclick="(() => isChoosed(ProjectData.ListDocs[7], 7))">Загрузить</button>
                 <InputFile disabled="@isSelect[7]" OnChange="@LoadFiles" class="btnDb" multiple/>
             </tr>
             
@@ -134,7 +133,7 @@
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[1].Important checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Important?"checked":null)"/></td>
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[1].Approve checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Approve?"checked":null)"/></td>
             
-                <button @onclick="(() => isChoosed(ProjectData.ListDocs[8], 8))">Загрузить</button>
+                <button class="btnRow" @onclick="(() => isChoosed(ProjectData.ListDocs[8], 8))">Загрузить</button>
                 <InputFile disabled="@isSelect[8]" OnChange="@LoadFiles" class="btnDb" multiple/>
             </tr>
             
@@ -146,7 +145,7 @@
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[0].Important checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Important?"checked":null)"/></td>
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[0].Approve checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Approve?"checked":null)"/></td>
             
-                <button @onclick="(() => isChoosed(ProjectData.ListDocs[0], 0))">Загрузить</button>
+                <button class="btnRow" @onclick="(() => isChoosed(ProjectData.ListDocs[0], 0))">Загрузить</button>
                 <InputFile disabled="@isSelect[0]" OnChange="@LoadFiles" class="btnDb" multiple/>
             </tr>
             
@@ -155,7 +154,7 @@
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[1].Important checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Important?"checked":null)"/></td>
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[1].Approve checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Approve?"checked":null)"/></td>
             
-                <button @onclick="(() => isChoosed(ProjectData.ListDocs[1], 1))">Загрузить</button>
+                <button class="btnRow" @onclick="(() => isChoosed(ProjectData.ListDocs[1], 1))">Загрузить</button>
                 <InputFile disabled="@isSelect[1]" OnChange="@LoadFiles" class="btnDb" multiple/>
             </tr>
             
@@ -164,7 +163,7 @@
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[1].Important checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Important?"checked":null)"/></td>
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[1].Approve checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Approve?"checked":null)"/></td>
             
-                <button @onclick="(() => isChoosed(ProjectData.ListDocs[2], 2))">Загрузить</button>
+                <button class="btnRow" @onclick="(() => isChoosed(ProjectData.ListDocs[2], 2))">Загрузить</button>
                 <InputFile disabled="@isSelect[2]" OnChange="@LoadFiles" class="btnDb" multiple/>
             </tr>
             
@@ -173,7 +172,7 @@
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[1].Important checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Important?"checked":null)"/></td>
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[1].Approve checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Approve?"checked":null)"/></td>
             
-                <button @onclick="(() => isChoosed(ProjectData.ListDocs[3], 3))">Загрузить</button>
+                <button class="btnRow" @onclick="(() => isChoosed(ProjectData.ListDocs[3], 3))">Загрузить</button>
                 <InputFile disabled="@isSelect[3]" OnChange="@LoadFiles" class="btnDb" multiple/>
             </tr>
             
@@ -182,7 +181,7 @@
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[1].Important checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Important?"checked":null)"/></td>
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[1].Approve checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Approve?"checked":null)"/></td>
             
-                <button @onclick="(() => isChoosed(ProjectData.ListDocs[4], 4))">Загрузить</button>
+                <button class="btnRow" @onclick="(() => isChoosed(ProjectData.ListDocs[4], 4))">Загрузить</button>
                 <InputFile disabled="@isSelect[4]" OnChange="@LoadFiles" class="btnDb" multiple/>
             </tr>
             
@@ -191,7 +190,7 @@
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[5].Important checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Important?"checked":null)"/></td>
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[5].Approve checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Approve?"checked":null)"/></td>
             
-                <button @onclick="(() => isChoosed(ProjectData.ListDocs[5], 5))">Загрузить</button>
+                <button class="btnRow" @onclick="(() => isChoosed(ProjectData.ListDocs[5], 5))">Загрузить</button>
                 <InputFile disabled="@isSelect[5]" OnChange="@LoadFiles" class="btnDb" multiple/>
             </tr>
             
@@ -200,7 +199,7 @@
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[1].Important checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Important?"checked":null)"/></td>
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[1].Approve checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Approve?"checked":null)"/></td>
             
-                <button @onclick="(() => isChoosed(ProjectData.ListDocs[6], 6))">Загрузить</button>
+                <button class="btnRow" @onclick="(() => isChoosed(ProjectData.ListDocs[6], 6))">Загрузить</button>
                 <InputFile disabled="@isSelect[6]" OnChange="@LoadFiles" class="btnDb" multiple/>
             </tr>
             
@@ -209,7 +208,7 @@
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[1].Important checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Important?"checked":null)"/></td>
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[1].Approve checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Approve?"checked":null)"/></td>
             
-                <button @onclick="(() => isChoosed(ProjectData.ListDocs[7], 7))">Загрузить</button>
+                <button class="btnRow" @onclick="(() => isChoosed(ProjectData.ListDocs[7], 7))">Загрузить</button>
                 <InputFile disabled="@isSelect[7]" OnChange="@LoadFiles" class="btnDb" multiple/>
             </tr>
             
@@ -218,7 +217,7 @@
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[1].Important checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Important?"checked":null)"/></td>
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[1].Approve checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Approve?"checked":null)"/></td>
             
-                <button @onclick="(() => isChoosed(ProjectData.ListDocs[8], 8))">Загрузить</button>
+                <button class="btnRow" @onclick="(() => isChoosed(ProjectData.ListDocs[8], 8))">Загрузить</button>
                 <InputFile disabled="@isSelect[8]" OnChange="@LoadFiles" class="btnDb" multiple/>
             </tr>
             
@@ -227,7 +226,7 @@
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[1].Important checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Important?"checked":null)"/></td>
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[1].Approve checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Approve?"checked":null)"/></td>
             
-                <button @onclick="(() => isChoosed(ProjectData.ListDocs[9], 9))">Загрузить</button>
+                <button class="btnRow" @onclick="(() => isChoosed(ProjectData.ListDocs[9], 9))">Загрузить</button>
                 <InputFile disabled="@isSelect[9]" OnChange="@LoadFiles" class="btnDb" multiple/>
             </tr>
             
@@ -236,7 +235,7 @@
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[1].Important checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Important?"checked":null)"/></td>
                 <td><input type="checkbox" disabled="true" @bind-value=@ProjectData.ListDocs[1].Approve checked="@(ProjectData.ListDocs[ProjectData.ListDocs.Count-2].Approve?"checked":null)"/></td>
             
-                <button @onclick="(() => isChoosed(ProjectData.ListDocs[10], 10))">Загрузить</button>
+                <button class="btnRow" @onclick="(() => isChoosed(ProjectData.ListDocs[10], 10))">Загрузить</button>
                 <InputFile disabled="@isSelect[10]" OnChange="@LoadFiles" class="btnDb" multiple/>
             </tr>
             

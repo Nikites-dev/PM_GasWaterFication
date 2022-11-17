@@ -15,8 +15,8 @@
     
     <div class="content-left">
         <div class="left-row1">
-            <button onclick="@isCreate">Create project</button>    
-            <button onclick="@isChooseFormBtn">Documentation</button>    
+            <button class="btnSign2" onclick="@isCreate">Create project</button>    
+            <button class="btnSign2" onclick="@isChooseFormBtn">Documentation</button>    
         </div>
         
         <div class="left-row2">
@@ -25,7 +25,7 @@
               {
                   <div class="scroll-row">
                       <p>@project.DataCreate</p>
-                      <button @onclick="(() => isChoose(project))">Подробнее</button>
+                      <button class="btnRow" @onclick="(() => isChoose(project))">Подробнее</button>
                   </div>
               }
         </div>
@@ -41,52 +41,52 @@
 
             <div class="card-row">
                 <p>First Name</p>
-                <input @bind-value="@userFName"/>
+                <input class="inputCard" @bind-value="@userFName"/>
             </div>
 
             <div class="card-row">
                 <p>Last Name</p>
-                <input @bind-value="@userLName"/>
+                <input class="inputCard" @bind-value="@userLName"/>
             </div>
 
             <div class="card-row">
                 <p>Login</p>
-                <input @bind-value="@userLogin"/>
+                <input class="inputCard" @bind-value="@userLogin"/>
             </div>
 
             <div class="card-row">
                 <p>Password</p>
-                <input @bind-value="@userPassword"/>
+                <input class="inputCard" @bind-value="@userPassword"/>
             </div>
 
             <div class="card-row">
                 <p>Email</p>
-                <input @bind-value="@userEmail"/>
+                <input class="inputCard" @bind-value="@userEmail"/>
             </div>
 
             <div class="card-row">
                 <p>Phone</p>
-                <input @bind-value="@userPhone"/>
+                <input class="inputCard" @bind-value="@userPhone"/>
             </div>
 
             <div class="card-row">
                 <p>Department</p>
-                <input @bind-value="@userDepartment"/>
+                <input class="inputCard" @bind-value="@userDepartment"/>
             </div>
 
             <div class="card-row">
                 <p>Position</p>
-                <input @bind-value="@userPosition"/>
+                <input class="inputCard" @bind-value="@userPosition"/>
             </div>
             
             <div class="card-row">
                 <p>Role</p>
-                <input @bind-value="@userRole"/>
+                <input class="inputCard" @bind-value="@userRole"/>
             </div>
             
         </div>
         
-        <button class="btnSing" onclick="@UpdatePersonInfo">Save</button>
+        <button class="btnSign" onclick="@UpdatePersonInfo">Save</button>
         
     </div>
     

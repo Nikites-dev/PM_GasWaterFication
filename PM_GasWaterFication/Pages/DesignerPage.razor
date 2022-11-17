@@ -17,7 +17,7 @@
 
     <div class="content-left">
         <div class="left-row1">
-            <button onclick="@isChooseFormBtn">Documentation</button>   
+            <button class="btnRow" onclick="@isChooseFormBtn">Documentation</button>   
         </div>
         
             
@@ -27,7 +27,7 @@
               {
                   <div class="scroll-row">
                       <p>@project.DataCreate</p>
-                      <button @onclick="(() => isChoose(project))">Подробнее</button>
+                      <button class="btnRow" @onclick="(() => isChoose(project))">Подробнее</button>
                   </div>
               }
         </div> 
@@ -114,7 +114,7 @@
                 <input @bind-value="@userMainEngineer"/>
             </div>
         </div>
-        <button class="btnSing" onclick="@UpdatePersonInfo">Save</button>
+        <button class="btnSign" onclick="@UpdatePersonInfo">Save</button>
     </div>
     
     <div class="content-bottom">

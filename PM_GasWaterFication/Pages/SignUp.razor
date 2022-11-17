@@ -4,53 +4,51 @@
 @inject NavigationManager NavigationManager
 
 
+<h3>Sign up</h3>
 
-<div class="content">
-   
-    <div class="cardSign">
-         <p class="pHeader"> SignUp </p>
-         @* <p class="pHeader"> @selectRole</p> *@
-         <div class="rowCard">
+<div class="cardSign">
+        @* <p class="pHeader"> @selectRole</p> *@
+         <div class="rowContent">
              <p>Роль</p>
-             <select @bind="selectRole">
-                 <option  value=@itemRole1>Заказчик</option>
+             <select class="selectCard" @bind="selectRole">
+                 <option value=@itemRole1>Заказчик</option>
                  <option value=@itemRole2>Проектирощик</option>
                  <option value=@itemRole3>Застройщик</option>
                 
              </select>
          </div>
          
-         <div class="rowCard">
+         <div class="rowContent">
              <p>FName</p>
-             <input @bind-value="@itemFName"/>
+             <input class="inputCard" @bind-value="@itemFName"/>
          </div>
          
-         <div class="rowCard">
+         <div class="rowContent">
              <p>LName</p>
-             <input @bind-value="@itemLName"/>
+             <input class="inputCard"  @bind-value="@itemLName"/>
          </div>
 
-         <div class="rowCard">
+         <div class="rowContent">
             <p>Email</p>
-            <input @bind-value="@itemEmail"/>
+            <input class="inputCard" @bind-value="@itemEmail"/>
         </div>
         
-        <div class="rowCard">
+        <div class="rowContent">
             <p>Login</p>
-            <input @bind-value="@itemLogin"/>
+            <input class="inputCard" @bind-value="@itemLogin"/>
         </div>
         
-        <div class="rowCard">
+        <div class="rowContent">
             <p>Password</p>
-            <input @bind-value="@itemPassword"/>
+            <input class="inputCard" @bind-value="@itemPassword"/>
         </div>
         
-        <button class="btnSing" onclick="@isValidate">Sign up</button>
+        <button class="btnSign" onclick="@isValidate">Sign up</button>
         
          <Message Text="@msgText"></Message>
          
     </div>
-</div>
+
 
 
 
