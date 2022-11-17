@@ -1,17 +1,37 @@
 ﻿@page "/builder"
 @using Microsoft.VisualBasic.CompilerServices
+@using PM_GasWaterFication.Models.Documents
 @using PM_GasWaterFication.MongoDB
 @using PM_GasWaterFication.Pages.Documentation
+@using ProjectData = PM_GasWaterFication.Models.Documents.ProjectData
+@using BlazorPMLabsUnits.Models
+
 @inject PM_GasWaterFication.MongoDB.MongoDBAction mongo
 @inject CreateProject CreateProject
+@inject ProjectData ProjectData
+@inject FileSystemService FileSystemService
 
 <h3>ClientPage</h3>
 
 <div class="content-main">
 
-     <div class="content-left">
-            <p>Create project</p>
-        </div>
+      <div class="content-left">
+             <div class="left-row1">
+                 <button onclick="@isChooseFormBtn">Documentation</button>   
+             </div>
+             
+                 
+             <div class="left-row2">
+               
+                   @foreach (var project in listProjects)
+                   {
+                       <div class="scroll-row">
+                           <p>@project.DataCreate</p>
+                           <button @onclick="(() => isChoose(project))">Подробнее</button>
+                       </div>
+                   }
+             </div> 
+         </div>
     
     <div class="content-right">
         
@@ -92,15 +112,18 @@
                 <p>MainEngineer</p>
                 <input @bind-value="@userHeadOfExecutiveCommittee"/>
             </div>
-
-
-
-
         </div>
-        
         <button class="btnSing" onclick="@UpdatePersonInfo">Save</button>
-        
     </div>
+    
+    <div class="content-bottom">
+    @if(isChooseProject == true) 
+    {
+        <DocListPage ProjectData="@curentProject" intRole="@indx"></DocListPage>
+          
+    }
+    </div>
+    
 
 </div>
 
@@ -126,6 +149,14 @@
 
  
     
+    
+    bool isChooseProject;
+    bool isChooseForm;
+
+    int indx = 3;
+    
+    List<ProjectData> listProjects = new List<ProjectData>();
+    ProjectData curentProject = new ProjectData();
 
     protected override void OnInitialized()
     {
@@ -147,7 +178,7 @@
             userAddress = mongo.isLoginBuilder.Address;
             userHeadOfExecutiveCommittee = mongo.isLoginBuilder.HeadOfExecutiveCommittee;
         
-            
+            listProjects = MongoDBAction.GetListProjects(userLogin);
         }
     }
 
@@ -172,5 +203,28 @@
 
 
         MongoDBAction.UpdateByName(userLogin, builder);
+    }
+    
+    
+    private void isChoose(ProjectData project)
+    {
+        if (curentProject != null)
+        {
+            curentProject = project;
+            isChooseProject = true;
+        }
+    }
+    
+    private void isChooseFormBtn()
+    {
+        if (curentProject != null && isChooseProject && !isChooseForm)
+        {
+            isChooseForm = true;
+        }
+        else
+        {
+            isChooseForm = false;
+        }
+
     }
 }
